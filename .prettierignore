@@ -1,6 +1,3 @@
-.cache
-package.json
-package-lock.json
+.next
+.vercel
 public
-data
-__generated__
