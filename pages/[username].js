@@ -2,11 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {
-  faArrowLeft,
-  faCodeBranch,
-  faStar,
-} from '@fortawesome/free-solid-svg-icons'
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
+
+import RepositoryCard from '../components/RepositoryCard'
 
 export default function User({repositories, username}) {
   const user = repositories[0]?.owner
@@ -29,24 +27,8 @@ export default function User({repositories, username}) {
         <div className="font-semibold">{username}</div>
       </div>
       <div className="gap-4 grid sm:grid-cols-2 md:grid-cols-3 mt-4">
-        {repositories.map((repo) => (
-          <div
-            className="bg-white flex flex-col min-h-[160px] p-4 rounded-md shadow-md"
-            key={repo.id}
-          >
-            <div className="font-medium">{repo.name}</div>
-            <div className="flex-1 text-sm">{repo.description}</div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <FontAwesomeIcon icon={faStar} />
-                <span>{repo.stargazers_count}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FontAwesomeIcon icon={faCodeBranch} />
-                <span>{repo.forks}</span>
-              </div>
-            </div>
-          </div>
+        {repositories.map((repository) => (
+          <RepositoryCard key={repository.id} repository={repository} />
         ))}
       </div>
     </>
