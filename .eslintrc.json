@@ -1,0 +1,8 @@
+{
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "rules": {
+    "no-constant-binary-expression": "error",
+    "no-unused-labels": "warn",
+    "no-unused-vars": ["warn", {"args": "none", "ignoreRestSiblings": true}]
+  }
+}

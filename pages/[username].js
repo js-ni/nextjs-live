@@ -1,5 +1,6 @@
+import Image from 'next/image'
 import Link from 'next/link'
-import {Box, IconButton, Grid, Image, Stack} from '@chakra-ui/core'
+
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {
   faArrowLeft,
@@ -12,56 +13,42 @@ export default function User({repositories, username}) {
 
   return (
     <>
-      <Stack isInline align="center" spacing={4}>
-        <Link href="/">
-          <IconButton
-            icon={() => <FontAwesomeIcon fixedWidth icon={faArrowLeft} />}
-            rounded="full"
-          />
+      <div className="flex items-center !space-x-4">
+        <Link href="/" passHref>
+          <a className="bg-gray-200 hover:bg-gray-300 h-8 flex items-center justify-center rounded-full w-8">
+            <FontAwesomeIcon fixedWidth icon={faArrowLeft} />
+          </a>
         </Link>
-
         <Image
-          ml={2}
-          rounded="full"
-          shadow="md"
-          size={10}
+          alt={user.login}
+          className="rounded-full shadow-md"
+          height={40}
           src={user.avatar_url}
+          width={40}
         />
-        <Box fontWeight="semibold">{username}</Box>
-      </Stack>
-
-      <Grid
-        gap={4}
-        mt={4}
-        templateColumns={[`repeat(1, 1fr)`, `repeat(2, 1fr)`, `repeat(3, 1fr)`]}
-      >
+        <div className="font-semibold">{username}</div>
+      </div>
+      <div className="gap-4 grid sm:grid-cols-2 md:grid-cols-3 mt-4">
         {repositories.map((repo) => (
-          <Stack
-            bg="white"
+          <div
+            className="bg-white flex flex-col min-h-[160px] p-4 rounded-md shadow-md"
             key={repo.id}
-            minH={40}
-            p={4}
-            rounded="md"
-            shadow="md"
           >
-            <Box fontWeight="medium">{repo.name}</Box>
-            <Box flex={1} fontSize="sm">
-              {repo.description}
-            </Box>
-
-            <Stack isInline spacing="auto">
-              <Stack isInline align="center">
-                <FontAwesomeIcon fixedWidth icon={faStar} />
-                <Box ml={2}>{repo.stargazers_count}</Box>
-              </Stack>
-              <Stack isInline align="center">
-                <FontAwesomeIcon fixedWidth icon={faCodeBranch} />
-                <Box ml={2}>{repo.forks}</Box>
-              </Stack>
-            </Stack>
-          </Stack>
+            <div className="font-medium">{repo.name}</div>
+            <div className="flex-1 text-sm">{repo.description}</div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <FontAwesomeIcon icon={faStar} />
+                <span>{repo.stargazers_count}</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <FontAwesomeIcon icon={faCodeBranch} />
+                <span>{repo.forks}</span>
+              </div>
+            </div>
+          </div>
         ))}
-      </Grid>
+      </div>
     </>
   )
 }

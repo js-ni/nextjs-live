@@ -1,28 +1,14 @@
-import Link from 'next/link'
-import {Box, Button, Grid, Image, Stack, Heading} from '@chakra-ui/core'
-
 import UserCard from '../components/UserCard'
 
 export default function Home({users}) {
   return (
     <>
-      <Heading as="h1" size="lg">
-        Miembros
-      </Heading>
-      <Grid
-        gap={4}
-        mt={4}
-        templateColumns={[
-          `repeat(1, 1fr)`,
-          `repeat(2, 1fr)`,
-          `repeat(3, 1fr)`,
-          `repeat(5, 1fr)`,
-        ]}
-      >
+      <h1 className="font-bold text-3xl">Miembros</h1>
+      <div className="gap-4 grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mt-4">
         {users.map((user) => (
           <UserCard key={user.id} user={user} />
         ))}
-      </Grid>
+      </div>
     </>
   )
 }
@@ -39,7 +25,9 @@ export async function getStaticProps() {
   const users = await response.json()
 
   return {
-    unstable_revalidate: 300,
-    props: {users},
+    revalidate: 300,
+    props: {
+      users,
+    },
   }
 }
