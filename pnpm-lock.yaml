@@ -8,6 +8,7 @@ specifiers:
   eslint-config-next: 12.3.0
   eslint-config-prettier: 8.5.0
   eslint-plugin-prettier: 4.2.1
+  ky: 0.31.3
   next: 12.3.0
   postcss: 8.4.16
   prettier: 2.0.5
@@ -20,6 +21,7 @@ dependencies:
   '@fortawesome/free-solid-svg-icons': 6.2.0
   '@fortawesome/react-fontawesome': 0.2.0_6j2wdqxompc6mcokhxkpep2gqu
   autoprefixer: 10.4.11_postcss@8.4.16
+  ky: 0.31.3
   next: 12.3.0_biqbaboplfbrettd7655fr4n2y
   postcss: 8.4.16
   react: 18.2.0
@@ -1434,6 +1436,11 @@ packages:
       array-includes: 3.1.5
       object.assign: 4.1.4
     dev: true
+
+  /ky/0.31.3:
+    resolution: {integrity: sha512-YDDQKG0Lt4PFSPZGJI8WKAm5y+1ebbeA306am+4nT7riX13wjNVD5sR/QOKtgsaQaARwrdUHlv0M9kJ1qv+Jug==}
+    engines: {node: '>=14.16'}
+    dev: false
 
   /language-subtag-registry/0.3.22:
     resolution: {integrity: sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w==}

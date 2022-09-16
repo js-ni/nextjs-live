@@ -4,15 +4,16 @@ import Link from 'next/link'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 
-import RepositoryCard from '../components/RepositoryCard'
+import RepositoryCard from '@components/RepositoryCard'
+import ky from '@utils/ky'
 
-export default function User({repositories, username}) {
+export default function User({repositories}) {
   const user = repositories[0]?.owner
 
   return (
     <>
       <div className="flex items-center !space-x-4">
-        <Link href="/" passHref>
+        <Link href="/">
           <a className="bg-gray-200 hover:bg-gray-300 h-8 flex items-center justify-center rounded-full w-8">
             <FontAwesomeIcon fixedWidth icon={faArrowLeft} />
           </a>
@@ -36,15 +37,7 @@ export default function User({repositories, username}) {
 }
 
 export async function getStaticPaths() {
-  const response = await fetch(
-    `https://api.github.com/orgs/js-ni/public_members`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
-      },
-    }
-  )
-  const users = await response.json()
+  const users = await ky.get('orgs/js-ni/public_members').json()
   const paths = users.map((user) => ({params: {username: user.login}}))
 
   return {
@@ -54,20 +47,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params: {username}}) {
-  const response = await fetch(
-    `https://api.github.com/users/${username}/repos`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
-      },
-    }
-  )
-  const repositories = await response.json()
+  const repositories = await ky.get(`users/${username}/repos`).json()
 
   return {
     props: {
       repositories,
-      username,
     },
   }
 }

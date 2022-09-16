@@ -1,4 +1,5 @@
-import UserCard from '../components/UserCard'
+import UserCard from '@components/UserCard'
+import ky from '@utils/ky'
 
 export default function Home({users}) {
   return (
@@ -14,15 +15,7 @@ export default function Home({users}) {
 }
 
 export async function getStaticProps() {
-  const response = await fetch(
-    `https://api.github.com/orgs/js-ni/public_members`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.GITHUB_ACCESS_TOKEN}`,
-      },
-    }
-  )
-  const users = await response.json()
+  const users = await ky.get('orgs/js-ni/public_members').json()
 
   return {
     revalidate: 300,
